@@ -5,7 +5,7 @@ const {check, validationResult, body} = require("express-validator")
 const { validarId } = require('../middleware/validarId');
 
 router.get('/ver', verJugadores);
-router.get('ver/:id',validarId, verJugadorId);
+router.get('/ver/:id',validarId, verJugadorId);
 router.post('/crear', [
     check("nombre").not().isEmpty().withMessage("campo vacio").isLength({max: 20, min: 4}),
     check("apellido").not().isEmpty().withMessage("campo vacio").isLength({max: 20, min: 4}),
