@@ -5,6 +5,7 @@ const {
 const {
     validationResult
 } = require("express-validator");
+const axios = require('axios');
 
 
 
@@ -26,14 +27,6 @@ const verJugadorId = async (req, res) => {
     const jugador = await Player.findById(req.params.id)
     res.json({jugador})
 }
-
-// const buscarJugadorPorPosicion = async (req, res) => {
-//     try {
-//         const jugadores = await Player.findOne(req.params.posicion)
-//     } catch (error) {
-
-//     }
-// }
 
 const agregarJugador = async (req, res) => {
     try {
@@ -85,27 +78,6 @@ const agregarJugador = async (req, res) => {
     }
 }
 
-// const editarJugador = async(req, res) => {
-//     try {
-//         const error = validationResult(req);
-//         if(error.isEmpty()) {
-//             const {id} = req.params;
-//             const update = await Player.findByIdAndUpdate(id, req.body);
-//             res.status(202).json({name: req.body.name, update})
-//         }
-//         res.status(501).json(error);
-//     } catch (error) {
-//         res.status(501).json({msg: "No se puede modificar la computadora por favor intente mas tarde", error});
-//     }
-// }
-
-// const editarJugador = async (req, res) => {
-//     const {id} = req.params
-//     const edicion = await Player.findByIdAndUpdate(id, req.body)
-//     res.status(202).json({name: req.body.name, edicion})
-// }
-
-
 const editarJugador = async (req, res) => {
     const error = validationResult(req)
     if (error.isEmpty()) {
@@ -132,11 +104,77 @@ const borrarJugador = async (req, res) => {
     }
 }
 
+
+const consultaPeople = async(req, res) => {
+    try {
+        const respuesta = await axios.get("https://swapi.dev/api/people/", {timeout: 10000})
+        res.json({status: respuesta.status, data: respuesta.data});
+    } catch (error) {
+        res.json({status: error.response.status, data: error.response.data})
+    }
+}
+
+const consultaPlanets = async(req, res) => {
+    try {
+        const respuesta = await axios.get("https://swapi.dev/api/planets/", {timeout: 10000})
+        res.json({status: respuesta.status, data: respuesta.data});        
+    } catch (error) {
+        res.json({status: error.response.status, data: error.response.data})
+    }
+}
+
+const consultaFilms = async(req, res) => {
+
+    try {
+        const respuesta = await axios.get("https://swapi.dev/api/films/", {timeout: 10000})
+        res.json({status: respuesta.status, data: respuesta.data});        
+    } catch (error) {
+        res.json({status: error.response.status, data: error.response.data})
+    }
+}
+
+const consultaSpecies = async(req, res) => {
+
+    try {
+        const respuesta = await axios.get("https://swapi.dev/api/species/", {timeout: 10000})
+        res.json({status: respuesta.status, data: respuesta.data});        
+    } catch (error) {
+        res.json({status: error.response.status, data: error.response.data})
+    }
+
+}
+
+const consultaVehicles = async(req, res) => {
+
+    try {
+        const respuesta = await axios.get("https://swapi.dev/api/vehicles/", {timeout: 10000})
+        res.json({status: respuesta.status, data: respuesta.data});        
+    } catch (error) {
+        res.json({status: error.response.status, data: error.response.data}) 
+    }
+}
+
+const consultaStarShips = async(req, res) => {
+    try {
+        const respuesta = await axios.get("https://swapi.dev/api/starships/", {timeout: 10000})
+        res.json({status: respuesta.status, data: respuesta.data});        
+    } catch (error) {
+        res.json({status: error.response.status, data: error.response.data}) 
+    }
+
+}
+
 module.exports = {
     index,
     agregarJugador,
     verJugadores,
     verJugadorId,
     editarJugador,
-    borrarJugador
+    borrarJugador,
+    consultaPeople,
+    consultaPlanets,
+    consultaFilms,
+    consultaSpecies,
+    consultaStarShips,
+    consultaVehicles 
 }

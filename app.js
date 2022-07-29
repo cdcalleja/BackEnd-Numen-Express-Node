@@ -7,6 +7,7 @@ const cors = require('cors');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const jugadoresRouter = require('./routes/jugadores')
+const apiRouter = require('./routes/starwarsapi')
 
 const { dbConnection } = require('./database/db');
 
@@ -22,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/plantel', jugadoresRouter)
+app.use('/starwars',apiRouter)
 dbConnection()
 
 
